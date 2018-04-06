@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.l-display-none {
+  display: none;
+}
+.l-display-block {
+  display: block;
+}
+.l-display-inline-block {
+  display: inline-block;
+}
