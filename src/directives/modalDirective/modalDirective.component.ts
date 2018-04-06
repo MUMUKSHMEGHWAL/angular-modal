@@ -11,7 +11,6 @@ import { ModalService } from '../../core/services/modalService/modalServices.ser
 export class ModalDirectiveComponent implements OnInit {
     @Input() id: string;
     private ele: any;
-    private target: any;
 
     constructor(private modalService: ModalService, private el: ElementRef) {
       this.ele = el.nativeElement;
@@ -41,7 +40,6 @@ export class ModalDirectiveComponent implements OnInit {
     }
     // open modal
     open(target): void {
-      this.target = target;
       this.ele.setAttribute('style', 'display: block;');
       document.getElementsByTagName('body')[0].classList.add('modal-open');
     }
@@ -50,6 +48,5 @@ export class ModalDirectiveComponent implements OnInit {
     close(): void {
       this.ele.removeAttribute('style');
       document.getElementsByTagName('body')[0].classList.remove('modal-open');
-      this.target.classList.remove('l-display-none');
     }
 }

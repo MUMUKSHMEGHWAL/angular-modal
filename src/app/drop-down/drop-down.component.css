@@ -1,0 +1,22 @@
+.custom-dropdown {
+  display: inline-block;
+}
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+  border: 1px solid #000;
+}
+li:hover {
+  background: skyblue;
+}
+li:nth-of-type(1) {
+  background: lightgray;
+}
+.dropdown-heading {
+  border: 1px solid black;
+  padding: 3px;
+  cursor: default;
+  margin: 0;
+}
