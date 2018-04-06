@@ -9,8 +9,9 @@ import { ModalService } from '../../core/services/modalService/modalServices.ser
 })
 export class DropDownComponent implements OnInit {
   private citiData: any;
-  private lastCitySelected: any;
   private dropdownOpen = false;
+  private placeholder = 'select city';
+  private heading = 'select city';
   constructor(private _GetCityDataService: GetCityDataService, private _modalService: ModalService ) { }
 
   ngOnInit() {
@@ -23,36 +24,26 @@ export class DropDownComponent implements OnInit {
       }
     );
   }
-  openModal(evt) {
-    const target = evt.target;
-    const selectedIndex = target.options['selectedIndex'];
-    this.lastCitySelected = this.cityToShowInModal(target.options[selectedIndex].value);
-    if (selectedIndex) {
-      this._modalService.open(target, this.cityToShowInModal(target.options[selectedIndex].value));
-      target.classList.add('l-display-none');
+  openModal(target) {
+    if (target.innerText) {
+      this.heading = target.innerText;
+      this.closeDropDownList(target);
+      this._modalService.open(this.cityToShowInModal(target.innerText));
     }
   }
   cityToShowInModal(cityName) {
     return this.citiData.filter(el => el.name === cityName);
   }
-  openLastModal(evt) {
-      this.dropdownOpen = !this.dropdownOpen;
-      if (!this.isSelectOpen()) {
-        const target = evt.target;
-        const selectedIndex = target.options['selectedIndex'];
-        const citySelected = this.cityToShowInModal(target.options[selectedIndex].value);
-        if (citySelected[0].name === this.lastCitySelected[0].name) {
-          this._modalService.open(target, this.cityToShowInModal(target.options[selectedIndex].value));
-          target.classList.add('l-display-none');
-        }
-      }
-  }
-  // just a function to print out message
-  isSelectOpen() {
-    if (this.dropdownOpen) {
-      return true;
-    } else {
-      return false;
+  openDropdownList(target) {
+    if (target.nodeName === 'SPAN') {
+      target = target.parentElement;
     }
+    const classListOfDropdownList = target.nextElementSibling.classList;
+    this.dropdownOpen = !this.dropdownOpen;
+    this.dropdownOpen ? classListOfDropdownList.remove('l-display-none') : classListOfDropdownList.add('l-display-none');
+  }
+  closeDropDownList(target) {
+    this.dropdownOpen = !this.dropdownOpen;
+    target.parentElement.classList.add('l-display-none');
   }
 }

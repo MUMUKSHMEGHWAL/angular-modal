@@ -1,7 +1,17 @@
 <div>
-  <select name="select-city" id="citySelection"  (click)="openLastModal($event)" (change)="openModal($event)" class="">
+  <!-- <select name="select-city" id="citySelection"  (mouseup)="openModal($event)" class="">
     <option value='' selected="selected" disabled>Select City</option>    
     <option *ngFor="let city of citiData" value="{{city.name}}">{{city.name}}</option>
-  </select>
+  </select> -->
+  <div class="custom-dropdown">
+      <p class="dropdown-heading" (click)="openDropdownList($event.target)">
+        {{heading}}
+        <span class="fas fa-caret-down"></span>
+      </p>
+    <ul class="dropdown-list l-display-none">
+      <li>{{placeholder}}</li>
+      <li *ngFor="let city of citiData" (click)="openModal($event.target)">{{city.name}}</li>
+    </ul>
+  </div>
 </div>
 <app-modal ></app-modal>
